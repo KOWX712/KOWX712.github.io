@@ -4,7 +4,9 @@ import { getInitialLocale, persistLocale } from "./lib/locale";
 import { getInitialTheme, persistTheme, type Theme } from "./lib/theme";
 import { LocaleToggle } from "./components/layout/LocaleToggle";
 import { ThemeToggle } from "./components/layout/ThemeToggle";
+import { ScrollProgress } from "./components/layout/ScrollProgress";
 import { HeroSection } from "./components/hero/HeroSection";
+import { StatsStrip } from "./components/stats/StatsStrip";
 import { SkillsSection } from "./components/skills/SkillsSection";
 import { ProjectsSection } from "./components/projects/ProjectsSection";
 import { LinksSection } from "./components/links/LinksSection";
@@ -43,11 +45,13 @@ export default function App() {
 
   return (
     <main>
+      <ScrollProgress />
       <div className="fixed right-4 top-4 z-50 flex gap-2">
         <ThemeToggle theme={theme} onThemeChange={setTheme} />
         <LocaleToggle locale={locale} onLocaleChange={setLocale} />
       </div>
       <HeroSection locale={locale} />
+      <StatsStrip locale={locale} />
       <SkillsSection locale={locale} />
       <ProjectsSection locale={locale} />
       <LinksSection locale={locale} />

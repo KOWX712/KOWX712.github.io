@@ -3,6 +3,7 @@ import { copy } from "../../data/i18n";
 import { otherProjects, topProjects } from "../../data/projects";
 import { Reveal, RevealGroup } from "../layout/Reveal";
 import { Section } from "../layout/Section";
+import { TextReveal } from "../layout/TextReveal";
 import { ProjectCard } from "./ProjectCard";
 
 type ProjectsSectionProps = {
@@ -14,12 +15,12 @@ export function ProjectsSection({ locale }: ProjectsSectionProps) {
 
   return (
     <Section className="min-h-screen gap-10">
-      <Reveal>
-        <div>
-          <p className="text-sm uppercase tracking-[0.45em] text-accent-muted">Open Source</p>
-          <h2 className="mt-4 text-4xl font-black tracking-tight text-foreground sm:text-6xl">{t.projectsTitle}</h2>
-        </div>
-      </Reveal>
+      <div>
+        <p className="text-sm uppercase tracking-[0.45em] text-accent-muted">Open Source</p>
+        <h2 className="mt-4 text-4xl font-black tracking-tight text-foreground sm:text-6xl">
+          <TextReveal text={t.projectsTitle} as="span" />
+        </h2>
+      </div>
 
       <div>
         <Reveal delay={0.08}>

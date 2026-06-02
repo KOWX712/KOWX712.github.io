@@ -12,6 +12,14 @@ export const copy = {
     otherProjects: "Other Projects",
     linksTitle: "Other Links",
     footerLicense: "Released under the MIT License.",
+    statsStrip: {
+      yearsBuilding: "Years building",
+      followers: "GitHub followers",
+      repositories: "Public repositories",
+      totalStars: "Total stars",
+      pullRequests: "Pull requests",
+      commits: "Commits",
+    },
   },
   zh: {
     heroTitle: "KOWX712",
@@ -22,6 +30,14 @@ export const copy = {
     otherProjects: "其他项目",
     linksTitle: "其他链接",
     footerLicense: "以 MIT License 开源发布。",
+    statsStrip: {
+      yearsBuilding: "开发年限",
+      followers: "GitHub 关注者",
+      repositories: "公开仓库",
+      totalStars: "总 Star 数",
+      pullRequests: "Pull requests",
+      commits: "提交次数",
+    },
   },
   projectDescriptions: {
     en: {

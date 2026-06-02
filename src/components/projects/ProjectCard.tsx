@@ -1,8 +1,11 @@
 import { Star } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Locale } from "../../data/i18n";
 import { getProjectUrl, type Project } from "../../data/projects";
 import { getRepoStats, type RepoStats } from "../../lib/github";
+import { onScroll } from "animejs";
+import { usePrefersReducedMotion } from "../../lib/scroll";
+import { useCountUp } from "../../lib/countUp";
 
 type ProjectCardProps = {
   project: Project;
@@ -13,6 +16,9 @@ type ProjectCardProps = {
 export function ProjectCard({ project, locale, featured = false }: ProjectCardProps) {
   const [stats, setStats] = useState<RepoStats>({ stars: null });
   const projectUrl = getProjectUrl(project);
+  const cardRef = useRef<HTMLAnchorElement | null>(null);
+  const starNumberRef = useRef<HTMLSpanElement | null>(null);
+  const reduced = usePrefersReducedMotion();
 
   useEffect(() => {
     let cancelled = false;
@@ -28,9 +34,37 @@ export function ProjectCard({ project, locale, featured = false }: ProjectCardPr
     };
   }, [project.owner, project.repo]);
 
+  useEffect(() => {
+    if (reduced) return;
+    const el = cardRef.current;
+    if (!el) return;
+
+    const observer = onScroll({
+      target: el,
+      onUpdate: (self) => {
+        const p = self.progress;
+        const rotateX = (0.5 - p) * 12;
+        const rotateY = Math.sin(p * Math.PI) * 4;
+        el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        el.style.transformStyle = "preserve-3d";
+      },
+    });
+    return () => {
+      observer.revert();
+      if (el) el.style.transform = "";
+    };
+  }, [reduced]);
+
+  useCountUp({
+    ref: starNumberRef,
+    target: stats.stars ?? 0,
+    triggerOnce: true,
+  });
+
   return (
     <a
-      className="group relative flex min-h-56 flex-col justify-between overflow-hidden rounded-[2rem] border border-border bg-panel p-5 text-left shadow-2xl transition hover:-translate-y-1 hover:border-accent hover:bg-surface focus:outline-none focus:ring-2 focus:ring-accent"
+      ref={cardRef}
+      className="group relative flex min-h-56 flex-col justify-between overflow-hidden rounded-[2rem] border border-border bg-panel p-5 text-left shadow-2xl transition hover:border-accent hover:bg-surface focus:outline-none focus:ring-2 focus:ring-accent"
       href={projectUrl}
       target="_blank"
       rel="noreferrer"
@@ -52,7 +86,7 @@ export function ProjectCard({ project, locale, featured = false }: ProjectCardPr
           {stats.stars === null ? null : (
             <span className="inline-flex items-center gap-1 rounded-full bg-surface px-3 py-1 text-xs text-foreground-muted">
               <Star className="h-3.5 w-3.5" />
-              {stats.stars.toLocaleString()}
+              <span ref={starNumberRef}>0</span>
             </span>
           )}
         </div>
