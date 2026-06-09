@@ -19,7 +19,7 @@ type CachedStatsResult = StatsResult & {
   cachedAt: number;
 };
 
-const cacheTtlMs = 60 * 60 * 1000;
+const cacheTtlMs = 10 * 60 * 1000;
 const cacheKey = "backend:stats";
 
 function readCachedStats(): StatsResult | null {
