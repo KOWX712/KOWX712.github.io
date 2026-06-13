@@ -22,7 +22,7 @@ type CachedStatsResult = StatsResult & {
 const cacheTtlMs = 10 * 60 * 1000;
 const cacheKey = "backend:stats";
 
-function readCachedStats(): StatsResult | null {
+export function getCachedStats(): BackendStats | null {
   const cached = localStorage.getItem(cacheKey);
 
   if (!cached) {
@@ -32,8 +32,8 @@ function readCachedStats(): StatsResult | null {
   try {
     const parsed = JSON.parse(cached) as CachedStatsResult;
 
-    if (Date.now() - parsed.cachedAt < cacheTtlMs) {
-      return parsed;
+    if (Date.now() - parsed.cachedAt < cacheTtlMs && parsed.stats) {
+      return parsed.stats;
     }
   } catch {
     localStorage.removeItem(cacheKey);
@@ -43,10 +43,10 @@ function readCachedStats(): StatsResult | null {
 }
 
 export async function getBackendStats(): Promise<StatsResult> {
-  const cached = readCachedStats();
+  const cached = getCachedStats();
 
   if (cached) {
-    return cached;
+    return { stats: cached };
   }
 
   const url = import.meta.env.DEV
@@ -61,10 +61,11 @@ export async function getBackendStats(): Promise<StatsResult> {
     }
 
     const data = (await response.json()) as BackendStats;
-    const result: StatsResult = { stats: data, error: undefined };
-    const toCache: CachedStatsResult = { ...result, cachedAt: Date.now() };
-    localStorage.setItem(cacheKey, JSON.stringify(toCache));
-    return result;
+    if (data) {
+      const toCache: CachedStatsResult = { stats: data, cachedAt: Date.now() };
+      localStorage.setItem(cacheKey, JSON.stringify(toCache));
+    }
+    return { stats: data };
   } catch {
     return { stats: null, error: "Unable to fetch stats" };
   }

@@ -4,7 +4,7 @@ import { copy } from "../../data/i18n";
 import { Section } from "../layout/Section";
 import { StatTile } from "./StatTile";
 import type { BackendStats } from "../../lib/backend-stats";
-import { getBackendStats } from "../../lib/backend-stats";
+import { getCachedStats, getBackendStats } from "../../lib/backend-stats";
 import { fallbackStats } from "../../data/stats";
 
 function yearsSince(dateStr: string): number {
@@ -18,7 +18,7 @@ type StatsStripProps = {
 
 export function StatsStrip({ locale }: StatsStripProps) {
   const labels = copy[locale].statsStrip;
-  const [stats, setStats] = useState<BackendStats>(fallbackStats);
+  const [stats, setStats] = useState<BackendStats>(() => getCachedStats() ?? fallbackStats);
 
   useEffect(() => {
     let cancelled = false;
