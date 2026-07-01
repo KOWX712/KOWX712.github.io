@@ -64,7 +64,7 @@ export function ProjectCard({ project, locale, featured = false }: ProjectCardPr
   return (
     <a
       ref={cardRef}
-      className="group relative flex min-h-56 flex-col justify-between overflow-hidden rounded-[2rem] border border-border bg-panel p-5 text-left shadow-2xl transition hover:border-accent hover:bg-surface focus:outline-none focus:ring-2 focus:ring-accent"
+      className="group relative flex min-h-56 flex-col justify-between overflow-hidden rounded-4xl border border-border bg-panel p-5 text-left shadow-2xl transition hover:border-accent hover:bg-surface focus:outline-none focus:ring-2 focus:ring-accent"
       href={projectUrl}
       target="_blank"
       rel="noreferrer"

@@ -24,7 +24,7 @@ export const copy = {
   zh: {
     heroTitle: "KOWX712",
     heroSubtitle: "构建 Android 工具、Agent 工作流，以及更精致的开源界面。",
-    skillsTitle: "我掌握的技能栈",
+    skillsTitle: "我掌握的技术栈",
     projectsTitle: "GitHub 项目",
     topProjects: "重点项目",
     otherProjects: "其他项目",

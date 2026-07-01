@@ -40,7 +40,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-base text-foreground-muted sm:text-lg">
           {typedSubtitle}
-          <span className="inline-block h-[1.5em] w-[2px] translate-y-0.5 bg-accent align-text-bottom animate-pulse" />
+          <span className="inline-block h-[1.5em] w-0.5 translate-y-0.5 bg-accent align-text-bottom animate-pulse" />
         </p>
       </Reveal>
     </Section>

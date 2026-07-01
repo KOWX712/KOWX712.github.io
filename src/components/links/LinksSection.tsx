@@ -31,7 +31,7 @@ export function LinksSection({ locale }: LinksSectionProps) {
           return (
             <Reveal key={link.href}>
               <a
-                className="flex h-full items-center justify-center rounded-[2rem] border border-border bg-panel p-6 text-xl font-bold text-foreground transition hover:-translate-y-1 hover:border-accent hover:bg-surface focus:outline-none focus:ring-2 focus:ring-accent"
+                className="flex h-full items-center justify-center rounded-4xl border border-border bg-panel p-6 text-xl font-bold text-foreground transition hover:-translate-y-1 hover:border-accent hover:bg-surface focus:outline-none focus:ring-2 focus:ring-accent"
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"

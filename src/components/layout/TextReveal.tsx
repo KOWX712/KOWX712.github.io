@@ -1,6 +1,7 @@
 import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 import { animate, splitText, stagger, type TextSplitter } from "animejs";
 import { usePrefersReducedMotion } from "../../lib/scroll";
+import { cn } from "../../lib/utils";
 
 type TextRevealProps = {
   text: string;
@@ -52,10 +53,10 @@ export function TextReveal({
   }, [text, split, reduced, y, staggerMs]);
 
   if (reduced) {
-    return <Tag className={className}>{text}</Tag>;
+    return <Tag className={cn("leading-snug", className)}>{text}</Tag>;
   }
 
-  return <Tag className={className} ref={ref as React.Ref<never>}>{text}</Tag>;
+  return <Tag key={text} className={cn("leading-snug", className)} ref={ref as React.Ref<never>}>{text}</Tag>;
 }
 
 export type { ElementType };

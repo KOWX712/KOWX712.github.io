@@ -52,7 +52,7 @@ export function SkillGrid({ groups, locale }: SkillGridProps) {
 
   return (
     <div
-      className="relative rounded-[2rem] border border-border bg-panel p-4 backdrop-blur sm:p-6"
+      className="relative rounded-4xl border border-border bg-panel p-4 backdrop-blur sm:p-6"
       onPointerMove={handlePointerMove}
       style={{
         background: `radial-gradient(circle at ${spotlight.x}% ${spotlight.y}%, var(--accent-strong), transparent 18rem), var(--panel)`,
