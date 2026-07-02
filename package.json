@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "fetch-sites": "tsx scripts/fetch-site-metadata.ts",
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run fetch-sites && tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "test": "vitest run",
@@ -35,6 +36,7 @@
     "globals": "^17.7.0",
     "jsdom": "^29.1.1",
     "tailwindcss": "^4.3.2",
+    "tsx": "^4.22.4",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.62.1",
     "vite": "^8.1.2",

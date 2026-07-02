@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { type Site } from "../../data/sites";
-import { getSiteMetadata, type SiteMetadata } from "../../lib/siteMetadata";
+import { getSiteMetadata } from "../../lib/siteMetadata";
 import { onScroll } from "animejs";
 import { usePrefersReducedMotion } from "../../lib/scroll";
 
@@ -9,27 +9,9 @@ type SiteCardProps = {
 };
 
 export function SiteCard({ site }: SiteCardProps) {
-  const [metadata, setMetadata] = useState<SiteMetadata>({
-    title: null,
-    description: null,
-    favicon: null,
-  });
+  const metadata = getSiteMetadata(site.url);
   const cardRef = useRef<HTMLAnchorElement | null>(null);
   const reduced = usePrefersReducedMotion();
-
-  useEffect(() => {
-    let cancelled = false;
-
-    getSiteMetadata(site.url).then((nextMetadata) => {
-      if (!cancelled) {
-        setMetadata(nextMetadata);
-      }
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [site.url]);
 
   useEffect(() => {
     if (reduced) return;

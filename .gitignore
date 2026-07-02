@@ -16,3 +16,6 @@ dist-ssr
 
 # TypeScript build info
 *.tsbuildinfo
+
+# data
+src/data/sites-metadata.json
