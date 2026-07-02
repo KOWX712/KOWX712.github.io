@@ -9,6 +9,7 @@ import { HeroSection } from "./components/hero/HeroSection";
 import { StatsStrip } from "./components/stats/StatsStrip";
 import { SkillsSection } from "./components/skills/SkillsSection";
 import { ProjectsSection } from "./components/projects/ProjectsSection";
+import { SitesSection } from "./components/sites/SitesSection";
 import { LinksSection } from "./components/links/LinksSection";
 import { Footer } from "./components/footer/Footer";
 
@@ -54,6 +55,7 @@ export default function App() {
       <StatsStrip locale={locale} />
       <SkillsSection locale={locale} />
       <ProjectsSection locale={locale} />
+      <SitesSection locale={locale} />
       <LinksSection locale={locale} />
       <Footer locale={locale} />
     </main>

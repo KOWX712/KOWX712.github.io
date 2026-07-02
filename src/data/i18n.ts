@@ -10,6 +10,7 @@ export const copy = {
     projectsTitle: "GitHub Projects",
     topProjects: "Top Projects",
     otherProjects: "Other Projects",
+    mySitesTitle: "My Sites",
     linksTitle: "Other Links",
     footerLicense: "Released under the MIT License.",
     statsStrip: {
@@ -28,6 +29,7 @@ export const copy = {
     projectsTitle: "GitHub 项目",
     topProjects: "重点项目",
     otherProjects: "其他项目",
+    mySitesTitle: "我的网站",
     linksTitle: "其他链接",
     footerLicense: "以 MIT License 开源发布。",
     statsStrip: {
