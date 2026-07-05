@@ -4,5 +4,5 @@ export type Site = {
 
 export const sites: Site[] = [
   { url: "https://keybox.kowx712.cc/" },
-  { url: "https://www.kowx712.cc/markdown-printer/" },
+  { url: "https://tools.kowx712.cc/markdown-printer/" },
 ];
