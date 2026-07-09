@@ -3,8 +3,8 @@ import type { Locale } from "../../data/i18n";
 import { copy } from "../../data/i18n";
 import { Reveal } from "../layout/Reveal";
 import { Section } from "../layout/Section";
-import { TextReveal } from "../layout/TextReveal";
 import { PointerParallax } from "./PointerParallax";
+import { DiaTextReveal } from "../ui/dia-text-reveal";
 
 function useTypewriter(text: string, speed = 40) {
   const [displayed, setDisplayed] = useState("");
@@ -36,7 +36,10 @@ export function HeroSection({ locale }: HeroSectionProps) {
       <Reveal className="relative z-10" duration={0.8}>
         <p className="mb-5 text-sm uppercase tracking-[0.6em] text-accent-muted">Portfolio</p>
         <h1 className="text-6xl font-black text-foreground sm:text-8xl lg:text-9xl">
-          <TextReveal text={t.heroTitle} split="char" as="span" staggerMs={45} />
+          <DiaTextReveal
+            text={t.heroTitle}
+            colors={["#22d3ee", "#818cf8", "#f472b6", "#34d399"]}
+          />
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-base text-foreground-muted sm:text-lg">
           {typedSubtitle}
