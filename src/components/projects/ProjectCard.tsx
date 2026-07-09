@@ -6,6 +6,7 @@ import { getRepoStats, type RepoStats } from "../../lib/github";
 import { onScroll } from "animejs";
 import { usePrefersReducedMotion } from "../../lib/scroll";
 import { useCountUp } from "../../lib/countUp";
+import BorderGlow from "../ui/BorderGlow";
 
 type ProjectCardProps = {
   project: Project;
@@ -62,37 +63,39 @@ export function ProjectCard({ project, locale, featured = false }: ProjectCardPr
   });
 
   return (
-    <a
-      ref={cardRef}
-      className="group relative flex min-h-56 flex-col justify-between overflow-hidden rounded-4xl border border-border bg-panel p-5 text-left shadow-2xl transition hover:border-accent hover:bg-surface focus:outline-none focus:ring-2 focus:ring-accent"
-      href={projectUrl}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={`${project.name} on GitHub`}
-    >
-      {project.icon && (
-        <img
-          src={project.icon}
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute right-4 bottom-4 z-0 h-2/3 w-auto opacity-15"
-        />
-      )}
-      <div className="relative z-10">
-        <div className="flex items-start justify-between gap-4">
-          <h3 className={featured ? "text-2xl font-black text-foreground" : "text-xl font-bold text-foreground"}>
-            {project.name}
-          </h3>
-          {stats.stars === null ? null : (
-            <span className="inline-flex items-center gap-1 rounded-full bg-surface px-3 py-1 text-xs text-foreground-muted">
-              <Star className="h-3.5 w-3.5" />
-              <span ref={starNumberRef}>0</span>
-            </span>
-          )}
+    <BorderGlow className="min-h-56 w-full" borderRadius={28} animated={featured}>
+      <a
+        ref={cardRef}
+        className="group relative flex min-h-56 flex-col justify-between overflow-hidden p-5 text-left"
+        href={projectUrl}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`${project.name} on GitHub`}
+      >
+        {project.icon && (
+          <img
+            src={project.icon}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute right-4 bottom-4 z-0 h-2/3 w-auto opacity-15"
+          />
+        )}
+        <div className="relative z-10">
+          <div className="flex items-start justify-between gap-4">
+            <h3 className={featured ? "text-2xl font-black text-foreground" : "text-xl font-bold text-foreground"}>
+              {project.name}
+            </h3>
+            {stats.stars === null ? null : (
+              <span className="inline-flex items-center gap-1 rounded-full bg-surface px-3 py-1 text-xs text-foreground-muted">
+                <Star className="h-3.5 w-3.5" />
+                <span ref={starNumberRef}>0</span>
+              </span>
+            )}
+          </div>
+          <p className="mt-5 text-sm leading-6 text-foreground-muted">{project.description[locale]}</p>
         </div>
-        <p className="mt-5 text-sm leading-6 text-foreground-muted">{project.description[locale]}</p>
-      </div>
-      <p className="mt-8 text-sm font-semibold text-accent">{project.owner}/{project.repo}</p>
-    </a>
+        <p className="mt-8 text-sm font-semibold text-accent">{project.owner}/{project.repo}</p>
+      </a>
+    </BorderGlow>
   );
 }

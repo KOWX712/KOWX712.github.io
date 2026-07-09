@@ -5,6 +5,7 @@ import { links } from "../../data/links";
 import { Reveal, RevealGroup } from "../layout/Reveal";
 import { Section } from "../layout/Section";
 import { TextReveal } from "../layout/TextReveal";
+import BorderGlow from "../ui/BorderGlow";
 
 type LinksSectionProps = {
   locale: Locale;
@@ -25,33 +26,35 @@ export function LinksSection({ locale }: LinksSectionProps) {
           <TextReveal text={copy[locale].linksTitle} as="span" />
         </h2>
       </div>
-      <RevealGroup className="grid gap-4 md:grid-cols-3" stagger={0.1} delay={0.1}>
+      <RevealGroup className="grid gap-4 md:grid-cols-3 overflow-hidden" stagger={0.1} delay={0.1}>
         {links.map((link) => {
           const path = linkIcons[link.label];
           return (
             <Reveal key={link.href}>
-              <a
-                className="flex h-full items-center justify-center rounded-4xl border border-border bg-panel p-6 text-xl font-bold text-foreground transition hover:-translate-y-1 hover:border-accent hover:bg-surface focus:outline-none focus:ring-2 focus:ring-accent"
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`${link.label} (opens in a new tab)`}
-              >
-                {path && (
-                  <svg
-                    role="img"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    width={24}
-                    height={24}
-                    className="mr-3 shrink-0"
-                    aria-hidden="true"
-                  >
-                    <path d={path} />
-                  </svg>
-                )}
-                <span>{link.label}</span>
-              </a>
+              <BorderGlow borderRadius={28} animated>
+                <a
+                  className="flex h-full items-center justify-center p-6 text-xl font-bold text-foreground"
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${link.label} (opens in a new tab)`}
+                >
+                  {path && (
+                    <svg
+                      role="img"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      width={24}
+                      height={24}
+                      className="mr-3 shrink-0"
+                      aria-hidden="true"
+                    >
+                      <path d={path} />
+                    </svg>
+                  )}
+                  <span>{link.label}</span>
+                </a>
+              </BorderGlow>
             </Reveal>
           );
         })}

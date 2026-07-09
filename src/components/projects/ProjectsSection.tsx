@@ -26,7 +26,7 @@ export function ProjectsSection({ locale }: ProjectsSectionProps) {
         <Reveal delay={0.08}>
           <h3 className="mb-4 text-xl font-bold text-foreground">{t.topProjects}</h3>
         </Reveal>
-        <RevealGroup className="grid gap-4 lg:grid-cols-3" stagger={0.1} delay={0.15}>
+        <RevealGroup className="grid gap-4 lg:grid-cols-3 overflow-hidden" stagger={0.1} delay={0.15}>
           {topProjects.map((project) => (
             <Reveal key={`${project.owner}/${project.repo}`}>
               <ProjectCard project={project} locale={locale} featured />
@@ -39,7 +39,7 @@ export function ProjectsSection({ locale }: ProjectsSectionProps) {
         <Reveal>
           <h3 className="mb-4 text-xl font-bold text-foreground">{t.otherProjects}</h3>
         </Reveal>
-        <RevealGroup className="grid gap-4 md:grid-cols-2 lg:grid-cols-3" stagger={0.06} delay={0.05} amount={0.1}>
+        <RevealGroup className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 overflow-hidden" stagger={0.06} delay={0.05} amount={0.1}>
           {otherProjects.map((project) => (
             <Reveal key={`${project.owner}/${project.repo}`}>
               <ProjectCard project={project} locale={locale} />

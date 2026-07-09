@@ -38,7 +38,7 @@ export function StatsStrip({ locale }: StatsStripProps) {
         <StatTile label={labels.yearsBuilding} target={yearsBuilding} suffix="+" />
         <StatTile label={labels.followers} target={stats.followers} suffix="" />
         <StatTile label={labels.repositories} target={stats.repository_count} suffix="" />
-        <StatTile label={labels.totalStars} target={stats.total_stars} suffix="" />
+        <StatTile label={labels.totalStars} target={stats.total_stars} suffix="" highlight />
         <StatTile label={labels.pullRequests} target={stats.pr_count} suffix="" />
         <StatTile label={labels.commits} target={stats.commit_count} suffix="" />
       </div>

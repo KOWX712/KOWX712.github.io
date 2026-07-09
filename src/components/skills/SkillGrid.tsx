@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, type PointerEvent } from "react";
 import type { SkillGroup } from "../../data/skills";
 import type { Locale } from "../../data/i18n";
-import { cn } from "../../lib/utils";
+import BorderGlow from "../ui/BorderGlow";
 
 type SkillGridProps = {
   groups: SkillGroup[];
@@ -10,7 +10,6 @@ type SkillGridProps = {
 
 export function SkillGrid({ groups, locale }: SkillGridProps) {
   const [spotlight, setSpotlight] = useState({ x: 50, y: 50 });
-  const [activeSkill, setActiveSkill] = useState<string | null>(null);
   const currentRef = useRef({ x: 50, y: 50 });
   const targetRef = useRef({ x: 50, y: 50 });
   const rafRef = useRef(0);
@@ -63,23 +62,9 @@ export function SkillGrid({ groups, locale }: SkillGridProps) {
           <div key={group.id}>
             <h3 className="mb-4 text-sm uppercase tracking-[0.35em] text-foreground-subtle">{group.title[locale]}</h3>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-              {group.skills.map((skill) => {
-                const active = activeSkill === skill.name;
-
-                return (
-                  <button
-                    key={skill.name}
-                    type="button"
-                    className={cn(
-                      "group rounded-3xl border border-border bg-surface p-4 text-left transition focus:outline-none focus:ring-2 focus:ring-accent",
-                      "hover:-translate-y-1 hover:border-accent hover:bg-accent-soft",
-                      active && "border-accent bg-accent-soft",
-                    )}
-                    onPointerDown={() => setActiveSkill(skill.name)}
-                    onPointerUp={() => setActiveSkill(null)}
-                    onPointerLeave={() => setActiveSkill(null)}
-                    onPointerCancel={() => setActiveSkill(null)}
-                  >
+              {group.skills.map((skill) => (
+                <BorderGlow key={skill.name} className="p-4" borderRadius={20} fillOpacity={0.04}>
+                  <div className="text-left">
                     <span className="grid h-12 w-12 place-items-center rounded-2xl bg-surface p-2 text-accent-muted">
                       {skill.Icon ? (
                         <skill.Icon size={32} />
@@ -93,9 +78,9 @@ export function SkillGrid({ groups, locale }: SkillGridProps) {
                       ) : null}
                     </span>
                     <span className="mt-4 block text-sm font-semibold text-foreground">{skill.name}</span>
-                  </button>
-                );
-              })}
+                  </div>
+                </BorderGlow>
+              ))}
             </div>
           </div>
         ))}
