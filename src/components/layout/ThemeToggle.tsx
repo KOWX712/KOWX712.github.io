@@ -1,12 +1,19 @@
 import { Monitor, Moon, Sun } from "lucide-react";
 import type { Theme } from "../../lib/theme";
-import { cn } from "../../lib/utils";
 
-const themes: { code: Theme; label: string; Icon: typeof Sun }[] = [
-  { code: "light", label: "Light", Icon: Sun },
-  { code: "dark", label: "Dark", Icon: Moon },
-  { code: "system", label: "System", Icon: Monitor },
-];
+const themeOrder: Theme[] = ["light", "dark", "system"];
+
+const icons: Record<Theme, typeof Sun> = {
+  light: Sun,
+  dark: Moon,
+  system: Monitor,
+};
+
+const labels: Record<Theme, string> = {
+  light: "Light theme",
+  dark: "Dark theme",
+  system: "System theme",
+};
 
 type ThemeToggleProps = {
   theme: Theme;
@@ -14,32 +21,21 @@ type ThemeToggleProps = {
 };
 
 export function ThemeToggle({ theme, onThemeChange }: ThemeToggleProps) {
+  const cycle = () => {
+    const i = themeOrder.indexOf(theme);
+    onThemeChange(themeOrder[(i + 1) % themeOrder.length]);
+  };
+
+  const Icon = icons[theme];
+
   return (
-    <div
-      className="inline-flex items-center gap-1 rounded-full border border-border-strong bg-surface p-1 shadow-2xl backdrop-blur"
-      role="group"
-      aria-label="Select theme"
+    <button
+      type="button"
+      onClick={cycle}
+      aria-label={labels[theme]}
+      className="rounded-full border border-border-strong bg-surface p-2.5 text-foreground shadow-2xl backdrop-blur transition hover:bg-panel focus:outline-none focus:ring-2 focus:ring-accent"
     >
-      {themes.map(({ code, label, Icon }) => {
-        const active = theme === code;
-        return (
-          <button
-            key={code}
-            type="button"
-            onClick={() => onThemeChange(code)}
-            aria-label={label}
-            aria-pressed={active}
-            className={cn(
-              "flex h-7 w-7 items-center justify-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent",
-              active
-                ? "bg-accent text-on-accent shadow"
-                : "text-foreground-muted hover:text-foreground hover:bg-panel",
-            )}
-          >
-            <Icon size={14} aria-hidden="true" />
-          </button>
-        );
-      })}
-    </div>
+      <Icon size={18} aria-hidden="true" />
+    </button>
   );
 }
