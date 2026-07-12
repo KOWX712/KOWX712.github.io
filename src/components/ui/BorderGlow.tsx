@@ -79,13 +79,13 @@ const BorderGlow: React.FC<BorderGlowProps> = ({
   className = '',
   edgeSensitivity = 20,
   glowColor = '40 80 80',
-  backgroundColor = '#120F17',
+  backgroundColor = 'var(--background)',
   borderRadius = 28,
   glowRadius = 30,
   glowIntensity = 1.5,
   coneSpread = 25,
   animated = false,
-  colors = ['#0891b2', '#22d3ee', '#67e8f9'],
+  colors,
   fillOpacity = 0.5,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -94,6 +94,22 @@ const BorderGlow: React.FC<BorderGlowProps> = ({
   const [cursorAngle, setCursorAngle] = useState(45);
   const [edgeProximity, setEdgeProximity] = useState(0);
   const [sweepActive, setSweepActive] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    const el = document.documentElement;
+    const check = () => setIsDark(el.dataset.theme !== 'light');
+    check();
+    const mo = new MutationObserver(check);
+    mo.observe(el, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => mo.disconnect();
+  }, []);
+
+  const effectiveColors = colors ?? (isDark
+    ? ['#0891b2', '#22d3ee', '#67e8f9']
+    : ['#78350f', '#b45309', '#f59e0b']
+  );
+  const effectiveFillMode: React.CSSProperties['mixBlendMode'] = isDark ? 'soft-light' : 'normal';
 
   const getCenterOfElement = useCallback((el: HTMLElement) => {
     const { width, height } = el.getBoundingClientRect();
@@ -175,7 +191,7 @@ const BorderGlow: React.FC<BorderGlowProps> = ({
     ? Math.max(0, (edgeProximity * 100 - edgeSensitivity) / (100 - edgeSensitivity))
     : 0;
 
-  const meshGradients = buildMeshGradients(colors);
+  const meshGradients = buildMeshGradients(effectiveColors);
   const borderBg = meshGradients.map(g => `${g} border-box`);
   const fillBg = meshGradients.map(g => `${g} padding-box`);
   const angleDeg = `${cursorAngle.toFixed(3)}deg`;
@@ -238,7 +254,7 @@ const BorderGlow: React.FC<BorderGlowProps> = ({
           maskComposite: 'subtract, add, add, add, add, add',
           WebkitMaskComposite: 'source-out, source-over, source-over, source-over, source-over, source-over',
           opacity: borderOpacity * fillOpacity,
-          mixBlendMode: 'soft-light',
+          mixBlendMode: effectiveFillMode,
           transition: isVisible ? 'opacity 0.25s ease-out' : 'opacity 0.75s ease-in-out',
         } as React.CSSProperties}
       />

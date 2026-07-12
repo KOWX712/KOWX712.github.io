@@ -21,7 +21,7 @@ export function SitesSection({ locale }: SitesSectionProps) {
           <TextReveal text={t.mySitesTitle} as="span" />
         </h2>
       </div>
-      <RevealGroup className="flex flex-col gap-4 overflow-hidden" stagger={0.1} delay={0.1}>
+      <RevealGroup className="flex flex-col gap-4" stagger={0.1} delay={0.1}>
         {sites.map((site) => (
           <Reveal key={site.url}>
             <SiteCard site={site} />

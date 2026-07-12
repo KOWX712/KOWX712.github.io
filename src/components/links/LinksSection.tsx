@@ -26,7 +26,7 @@ export function LinksSection({ locale }: LinksSectionProps) {
           <TextReveal text={copy[locale].linksTitle} as="span" />
         </h2>
       </div>
-      <RevealGroup className="grid gap-4 md:grid-cols-3 overflow-hidden" stagger={0.1} delay={0.1}>
+      <RevealGroup className="grid gap-4 md:grid-cols-3" stagger={0.1} delay={0.1}>
         {links.map((link) => {
           const path = linkIcons[link.label];
           return (
